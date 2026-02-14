@@ -46,11 +46,9 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100%;
-    /* Eliminar outline azul de elementos enfocados */
     -webkit-tap-highlight-color: transparent;
 }
 
-/* Eliminar outline en todos los elementos */
 *:focus {
     outline: none !important;
 }
@@ -64,12 +62,6 @@ a:focus,
 .nav-link:focus {
     outline: none !important;
     box-shadow: none !important;
-}
-
-/* Solo mostrar outline para accesibilidad en navegación por teclado */
-*:focus-visible {
-    outline: 2px solid var(--color-primary) !important;
-    outline-offset: 2px !important;
 }
 
 ::selection {
@@ -91,12 +83,10 @@ a:focus,
     transition: width 0.2s, height 0.2s, background 0.2s;
 }
 
-/* Eliminar el círculo exterior */
 .cursor-outline {
     display: none;
 }
 
-/* Ocultar cursor personalizado en dispositivos táctiles y cuando el mouse no está en movimiento */
 @media (hover: none) and (pointer: coarse) {
     .cursor-dot {
         display: none;
@@ -107,12 +97,10 @@ a:focus,
     }
 }
 
-/* Ocultar cursor personalizado en elementos específicos */
 a, button, .btn, .nav-link, .script-card, .contact-card {
     cursor: none;
 }
 
-/* Mostrar cursor normal en dispositivos que no soportan hover */
 @media (hover: none) {
     a, button, .btn, .nav-link, .script-card, .contact-card {
         cursor: auto;
@@ -335,7 +323,6 @@ a, button, .btn, .nav-link, .script-card, .contact-card {
     position: relative;
     transition: var(--transition-fast);
     padding: 0.5rem 0;
-    /* Eliminar outline */
     outline: none !important;
     -webkit-tap-highlight-color: transparent;
 }
@@ -364,7 +351,6 @@ a, button, .btn, .nav-link, .script-card, .contact-card {
     outline: none !important;
 }
 
-/* Eliminar cualquier outline en el menú */
 .nav-menu:focus,
 .nav-menu *:focus {
     outline: none !important;
@@ -1070,7 +1056,6 @@ a, button, .btn, .nav-link, .script-card, .contact-card {
     color: var(--color-text-muted);
 }
 
-/* Eliminar posible línea blanca extra al final */
 body::after {
     display: none;
 }
@@ -1181,7 +1166,6 @@ body::after {
     scrollbar-color: var(--color-primary) var(--color-bg-darker);
 }
 
-/* Estilizar scrollbar para Chrome/Safari */
 .modal-body::-webkit-scrollbar {
     width: 8px;
 }
@@ -1257,152 +1241,6 @@ body::after {
     font-size: 1.2rem;
 }
 
-/* ==================== RESPONSIVE DESIGN ==================== */
-@media (max-width: 1024px) {
-    .about-content {
-        grid-template-columns: 1fr;
-    }
-    
-    .skills-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .modal-content {
-        max-width: 600px;
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-menu {
-        position: fixed;
-        top: 80px;
-        left: -100%;
-        width: 100%;
-        background: rgba(10, 14, 26, 0.98);
-        backdrop-filter: blur(20px);
-        flex-direction: column;
-        padding: 2rem;
-        gap: 1.5rem;
-        transition: left var(--transition-normal);
-        border-bottom: 1px solid rgba(0, 212, 255, 0.2);
-        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
-    }
-    
-    .nav-menu.active {
-        left: 0;
-    }
-    
-    .burger-menu {
-        display: flex;
-        z-index: 100;
-    }
-    
-    .burger-menu.active span:nth-child(1) {
-        transform: rotate(45deg) translate(8px, 8px);
-    }
-    
-    .burger-menu.active span:nth-child(2) {
-        opacity: 0;
-    }
-    
-    .burger-menu.active span:nth-child(3) {
-        transform: rotate(-45deg) translate(8px, -8px);
-    }
-    
-    .hero {
-        padding: 6rem 1.5rem 3rem;
-    }
-    
-    .scripts-grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .contact-grid {
-        flex-direction: column;
-    }
-    
-    .footer-content {
-        flex-direction: column;
-        gap: 2rem;
-        text-align: center;
-    }
-    
-    .footer-links {
-        flex-direction: column;
-        gap: 1rem;
-    }
-    
-    .cursor-dot {
-        display: none;
-    }
-    
-    body {
-        cursor: auto;
-    }
-    
-    a, button, .btn, .nav-link, .script-card, .contact-card {
-        cursor: auto;
-    }
-    
-    .modal-content {
-        max-width: 90%;
-        max-height: 85vh;
-    }
-    
-    .modal-body {
-        max-height: 55vh;
-    }
-}
-
-@media (max-width: 480px) {
-    .hero {
-        padding: 6rem 1rem 3rem;
-    }
-    
-    .hero-buttons {
-        flex-direction: column;
-        width: 100%;
-    }
-    
-    .btn {
-        width: 100%;
-    }
-    
-    .scripts-section,
-    .about-section,
-    .contact-section {
-        padding: 4rem 1rem;
-    }
-    
-    .title-line {
-        display: none;
-    }
-    
-    .modal-content {
-        margin: 0.5rem;
-        max-height: 90vh;
-    }
-    
-    .modal-body {
-        padding: 1rem;
-        max-height: 60vh;
-    }
-    
-    .modal-body pre {
-        padding: 1rem;
-        font-size: 0.8rem;
-    }
-    
-    .modal-footer {
-        padding: 0.8rem 1rem;
-    }
-    
-    .modal-footer .btn {
-        padding: 0.6rem 1rem;
-        font-size: 0.85rem;
-    }
-}
-
 /* ==================== EASTER EGG - GATO ==================== */
 .cat-easter-egg {
     position: relative;
@@ -1411,11 +1249,13 @@ body::after {
     display: flex;
     justify-content: center;
     align-items: center;
-    opacity: 0.1;
+    opacity: 0.15;
     transition: opacity 0.5s ease, transform 0.3s ease;
-    pointer-events: none;
+    pointer-events: auto;
     transform: translateY(20px);
-    margin-top: -30px;
+    margin-top: -20px;
+    margin-bottom: 10px;
+    z-index: 5;
 }
 
 .cat-easter-egg:hover {
@@ -1450,6 +1290,7 @@ body::after {
     background: #000;
     border-radius: 50%;
     animation: catBlink 4s infinite;
+    transition: transform 0.1s ease;
 }
 
 .cat-eye.left {
@@ -1595,13 +1436,13 @@ body::after {
     opacity: 0;
     transition: opacity 0.3s ease;
     pointer-events: none;
+    z-index: 10;
 }
 
 .cat-easter-egg:hover .cat-message {
     opacity: 1;
 }
 
-/* Animación especial al hacer click en el gato */
 .cat-easter-egg:active {
     animation: catExplode 0.3s ease;
 }
@@ -1617,6 +1458,7 @@ body::after {
     .cat-easter-egg {
         opacity: 0.3;
         transform: scale(0.8);
+        margin-top: -10px;
     }
     
     .cat-message {
@@ -1624,5 +1466,151 @@ body::after {
         white-space: normal;
         width: 150px;
         text-align: center;
+    }
+}
+
+/* ==================== RESPONSIVE DESIGN ==================== */
+@media (max-width: 1024px) {
+    .about-content {
+        grid-template-columns: 1fr;
+    }
+    
+    .skills-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        max-width: 600px;
+    }
+}
+
+@media (max-width: 768px) {
+    .nav-menu {
+        position: fixed;
+        top: 80px;
+        left: -100%;
+        width: 100%;
+        background: rgba(10, 14, 26, 0.98);
+        backdrop-filter: blur(20px);
+        flex-direction: column;
+        padding: 2rem;
+        gap: 1.5rem;
+        transition: left var(--transition-normal);
+        border-bottom: 1px solid rgba(0, 212, 255, 0.2);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    }
+    
+    .nav-menu.active {
+        left: 0;
+    }
+    
+    .burger-menu {
+        display: flex;
+        z-index: 100;
+    }
+    
+    .burger-menu.active span:nth-child(1) {
+        transform: rotate(45deg) translate(8px, 8px);
+    }
+    
+    .burger-menu.active span:nth-child(2) {
+        opacity: 0;
+    }
+    
+    .burger-menu.active span:nth-child(3) {
+        transform: rotate(-45deg) translate(8px, -8px);
+    }
+    
+    .hero {
+        padding: 6rem 1.5rem 3rem;
+    }
+    
+    .scripts-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .contact-grid {
+        flex-direction: column;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 2rem;
+        text-align: center;
+    }
+    
+    .footer-links {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .cursor-dot {
+        display: none;
+    }
+    
+    body {
+        cursor: auto;
+    }
+    
+    a, button, .btn, .nav-link, .script-card, .contact-card {
+        cursor: auto;
+    }
+    
+    .modal-content {
+        max-width: 90%;
+        max-height: 85vh;
+    }
+    
+    .modal-body {
+        max-height: 55vh;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 6rem 1rem 3rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        width: 100%;
+    }
+    
+    .btn {
+        width: 100%;
+    }
+    
+    .scripts-section,
+    .about-section,
+    .contact-section {
+        padding: 4rem 1rem;
+    }
+    
+    .title-line {
+        display: none;
+    }
+    
+    .modal-content {
+        margin: 0.5rem;
+        max-height: 90vh;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+        max-height: 60vh;
+    }
+    
+    .modal-body pre {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .modal-footer {
+        padding: 0.8rem 1rem;
+    }
+    
+    .modal-footer .btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
     }
 }
