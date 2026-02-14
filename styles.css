@@ -43,24 +43,33 @@ body {
     color: var(--color-text-primary);
     overflow-x: hidden;
     line-height: 1.6;
-    cursor: none;
-    -webkit-tap-highlight-color: transparent;
     margin: 0;
     padding: 0;
     min-height: 100%;
-    position: relative;
+    /* Eliminar outline azul de elementos enfocados */
+    -webkit-tap-highlight-color: transparent;
 }
 
-/* Outline highlight for mobile */
+/* Eliminar outline en todos los elementos */
 *:focus {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+    outline: none !important;
 }
 
-button:active,
-a:active {
-    outline: 2px solid var(--color-primary);
-    outline-offset: 2px;
+*:focus-visible {
+    outline: none !important;
+}
+
+button:focus,
+a:focus,
+.nav-link:focus {
+    outline: none !important;
+    box-shadow: none !important;
+}
+
+/* Solo mostrar outline para accesibilidad en navegación por teclado */
+*:focus-visible {
+    outline: 2px solid var(--color-primary) !important;
+    outline-offset: 2px !important;
 }
 
 ::selection {
@@ -70,27 +79,44 @@ a:active {
 
 /* ==================== CUSTOM CURSOR ==================== */
 .cursor-dot {
-    width: 8px;
-    height: 8px;
+    width: 6px;
+    height: 6px;
     background: var(--color-primary);
     border-radius: 50%;
     position: fixed;
     pointer-events: none;
     z-index: 10000;
-    transition: transform 0.15s ease;
+    transform: translate(-50%, -50%);
     box-shadow: var(--glow-primary);
+    transition: width 0.2s, height 0.2s, background 0.2s;
 }
 
+/* Eliminar el círculo exterior */
 .cursor-outline {
-    width: 30px;
-    height: 30px;
-    border: 2px solid var(--color-primary);
-    border-radius: 50%;
-    position: fixed;
-    pointer-events: none;
-    z-index: 9999;
-    transition: all 0.2s ease;
-    opacity: 0.5;
+    display: none;
+}
+
+/* Ocultar cursor personalizado en dispositivos táctiles y cuando el mouse no está en movimiento */
+@media (hover: none) and (pointer: coarse) {
+    .cursor-dot {
+        display: none;
+    }
+    
+    body {
+        cursor: auto;
+    }
+}
+
+/* Ocultar cursor personalizado en elementos específicos */
+a, button, .btn, .nav-link, .script-card, .contact-card {
+    cursor: none;
+}
+
+/* Mostrar cursor normal en dispositivos que no soportan hover */
+@media (hover: none) {
+    a, button, .btn, .nav-link, .script-card, .contact-card {
+        cursor: auto;
+    }
 }
 
 /* ==================== SCROLL PROGRESS ==================== */
@@ -115,7 +141,6 @@ a:active {
     height: 100%;
     z-index: 1;
     opacity: 0.4;
-    pointer-events: none;
 }
 
 .grid-overlay {
@@ -131,8 +156,6 @@ a:active {
     z-index: 1;
     pointer-events: none;
     animation: gridMove 20s linear infinite;
-    /* Limitar al viewport */
-    overflow: hidden;
 }
 
 @keyframes gridMove {
@@ -152,9 +175,6 @@ a:active {
     z-index: 0;
     pointer-events: none;
     animation: float 20s infinite ease-in-out;
-    /* Limitar al viewport */
-    overflow: hidden;
-    transform: translateZ(0); /* Aceleración por hardware */
 }
 
 .orb-1 {
@@ -187,14 +207,6 @@ a:active {
     0%, 100% { transform: translate(0, 0) scale(1); }
     33% { transform: translate(50px, -50px) scale(1.1); }
     66% { transform: translate(-30px, 30px) scale(0.9); }
-}
-
-/* Contenedor principal para limitar efectos */
-.main-content {
-    position: relative;
-    z-index: 10;
-    min-height: 100vh;
-    background: transparent;
 }
 
 /* ==================== HEADER ==================== */
@@ -323,6 +335,9 @@ a:active {
     position: relative;
     transition: var(--transition-fast);
     padding: 0.5rem 0;
+    /* Eliminar outline */
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .nav-link::after {
@@ -343,6 +358,16 @@ a:active {
 
 .nav-link:hover::after {
     width: 100%;
+}
+
+.nav-link:focus {
+    outline: none !important;
+}
+
+/* Eliminar cualquier outline en el menú */
+.nav-menu:focus,
+.nav-menu *:focus {
+    outline: none !important;
 }
 
 .burger-menu {
@@ -482,6 +507,13 @@ a:active {
     border: none;
     cursor: pointer;
     font-family: var(--font-body);
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .btn-primary {
@@ -537,35 +569,6 @@ a:active {
     background: rgba(0, 212, 255, 0.1);
     transform: translateY(-3px);
     box-shadow: var(--glow-secondary);
-}
-
-/* ==================== HERO STATS ==================== */
-.hero-stats {
-    display: flex;
-    gap: 3rem;
-    animation: fadeInUp 0.8s ease 0.8s both;
-    justify-content: center;
-    flex-wrap: wrap;
-}
-
-.stat-item {
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
-}
-
-.stat-number {
-    font-family: var(--font-display);
-    font-size: clamp(2rem, 5vw, 2.5rem);
-    font-weight: 900;
-    color: var(--color-primary);
-    text-shadow: var(--glow-primary);
-}
-
-.stat-label {
-    font-size: 0.9rem;
-    color: var(--color-text-muted);
-    font-weight: 400;
 }
 
 /* ==================== SCRIPTS SECTION ==================== */
@@ -759,6 +762,13 @@ a:active {
     font-family: var(--font-body);
     position: relative;
     overflow: hidden;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.script-btn:focus {
+    outline: none !important;
+    box-shadow: none !important;
 }
 
 .btn-view {
@@ -942,6 +952,12 @@ a:active {
     transition: var(--transition-normal);
     position: relative;
     overflow: hidden;
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.contact-card:focus {
+    outline: none !important;
 }
 
 .contact-card::before {
@@ -1007,8 +1023,6 @@ a:active {
     position: relative;
     z-index: 10;
     margin-top: 0;
-    /* Asegurar que no haya desbordamiento */
-    overflow: hidden;
 }
 
 .footer-content {
@@ -1037,10 +1051,16 @@ a:active {
     color: var(--color-text-secondary);
     text-decoration: none;
     transition: var(--transition-fast);
+    outline: none !important;
+    -webkit-tap-highlight-color: transparent;
 }
 
 .footer-links a:hover {
     color: var(--color-primary);
+}
+
+.footer-links a:focus {
+    outline: none !important;
 }
 
 .footer-bottom {
@@ -1050,13 +1070,9 @@ a:active {
     color: var(--color-text-muted);
 }
 
-/* Eliminar cualquier pseudo-elemento que pueda causar líneas */
-body::after,
-body::before,
-html::after,
-html::before {
-    display: none !important;
-    content: none !important;
+/* Eliminar posible línea blanca extra al final */
+body::after {
+    display: none;
 }
 
 /* ==================== MODAL ==================== */
@@ -1070,7 +1086,7 @@ html::before {
     display: none;
     align-items: center;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
 }
 
 .modal.active {
@@ -1097,8 +1113,8 @@ html::before {
     position: relative;
     background: var(--color-bg-card);
     border: 1px solid rgba(0, 212, 255, 0.3);
-    border-radius: 16px;
-    max-width: 900px;
+    border-radius: 12px;
+    max-width: 700px;
     width: 100%;
     max-height: 80vh;
     overflow: hidden;
@@ -1109,7 +1125,7 @@ html::before {
 @keyframes slideUp {
     from {
         opacity: 0;
-        transform: translateY(50px) scale(0.95);
+        transform: translateY(30px) scale(0.95);
     }
     to {
         opacity: 1;
@@ -1118,7 +1134,7 @@ html::before {
 }
 
 .modal-header {
-    padding: 1.5rem 2rem;
+    padding: 1rem 1.5rem;
     border-bottom: 1px solid rgba(0, 212, 255, 0.1);
     display: flex;
     justify-content: space-between;
@@ -1128,7 +1144,7 @@ html::before {
 
 .modal-title {
     font-family: var(--font-display);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     color: var(--color-primary);
 }
 
@@ -1136,15 +1152,16 @@ html::before {
     background: none;
     border: none;
     color: var(--color-text-secondary);
-    font-size: 2rem;
+    font-size: 1.8rem;
     cursor: pointer;
-    width: 40px;
-    height: 40px;
+    width: 36px;
+    height: 36px;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 8px;
     transition: var(--transition-fast);
+    outline: none !important;
 }
 
 .modal-close:hover {
@@ -1152,21 +1169,47 @@ html::before {
     color: var(--color-primary);
 }
 
+.modal-close:focus {
+    outline: none !important;
+}
+
 .modal-body {
-    padding: 2rem;
+    padding: 1.5rem;
     max-height: 50vh;
     overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-primary) var(--color-bg-darker);
+}
+
+/* Estilizar scrollbar para Chrome/Safari */
+.modal-body::-webkit-scrollbar {
+    width: 8px;
+}
+
+.modal-body::-webkit-scrollbar-track {
+    background: var(--color-bg-darker);
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb {
+    background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
+    border-radius: 4px;
+}
+
+.modal-body::-webkit-scrollbar-thumb:hover {
+    background: var(--color-primary);
 }
 
 .modal-body pre {
     background: var(--color-bg-darker);
-    padding: 1.5rem;
+    padding: 1.2rem;
     border-radius: 8px;
     overflow-x: auto;
     font-family: 'Courier New', monospace;
-    font-size: 0.95rem;
-    line-height: 1.6;
+    font-size: 0.85rem;
+    line-height: 1.5;
     border: 1px solid rgba(0, 212, 255, 0.1);
+    margin: 0;
 }
 
 .modal-body code {
@@ -1174,11 +1217,16 @@ html::before {
 }
 
 .modal-footer {
-    padding: 1.5rem 2rem;
+    padding: 1rem 1.5rem;
     border-top: 1px solid rgba(0, 212, 255, 0.1);
     display: flex;
     gap: 1rem;
     justify-content: flex-end;
+}
+
+.modal-footer .btn {
+    padding: 0.7rem 1.5rem;
+    font-size: 0.95rem;
 }
 
 /* ==================== TOAST NOTIFICATION ==================== */
@@ -1188,12 +1236,13 @@ html::before {
     right: 2rem;
     background: linear-gradient(135deg, var(--color-primary), var(--color-secondary));
     color: var(--color-bg-dark);
-    padding: 1rem 1.5rem;
+    padding: 0.8rem 1.2rem;
     border-radius: 8px;
     display: flex;
     align-items: center;
     gap: 0.8rem;
     font-weight: 600;
+    font-size: 0.95rem;
     box-shadow: var(--glow-intense);
     z-index: 10001;
     transform: translateY(150%);
@@ -1216,6 +1265,10 @@ html::before {
     
     .skills-grid {
         grid-template-columns: 1fr;
+    }
+    
+    .modal-content {
+        max-width: 600px;
     }
 }
 
@@ -1279,13 +1332,25 @@ html::before {
         gap: 1rem;
     }
     
+    .cursor-dot {
+        display: none;
+    }
+    
     body {
         cursor: auto;
     }
     
-    .cursor-dot,
-    .cursor-outline {
-        display: none;
+    a, button, .btn, .nav-link, .script-card, .contact-card {
+        cursor: auto;
+    }
+    
+    .modal-content {
+        max-width: 90%;
+        max-height: 85vh;
+    }
+    
+    .modal-body {
+        max-height: 55vh;
     }
 }
 
@@ -1303,15 +1368,6 @@ html::before {
         width: 100%;
     }
     
-    .hero-stats {
-        flex-direction: column;
-        gap: 2rem;
-    }
-    
-    .stat-item {
-        width: 100%;
-    }
-    
     .scripts-section,
     .about-section,
     .contact-section {
@@ -1323,7 +1379,26 @@ html::before {
     }
     
     .modal-content {
-        margin: 1rem;
+        margin: 0.5rem;
         max-height: 90vh;
+    }
+    
+    .modal-body {
+        padding: 1rem;
+        max-height: 60vh;
+    }
+    
+    .modal-body pre {
+        padding: 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .modal-footer {
+        padding: 0.8rem 1rem;
+    }
+    
+    .modal-footer .btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.85rem;
     }
 }
