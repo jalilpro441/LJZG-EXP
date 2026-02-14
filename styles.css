@@ -48,6 +48,7 @@ body {
     margin: 0;
     padding: 0;
     min-height: 100%;
+    position: relative;
 }
 
 /* Outline highlight for mobile */
@@ -114,6 +115,7 @@ a:active {
     height: 100%;
     z-index: 1;
     opacity: 0.4;
+    pointer-events: none;
 }
 
 .grid-overlay {
@@ -129,6 +131,8 @@ a:active {
     z-index: 1;
     pointer-events: none;
     animation: gridMove 20s linear infinite;
+    /* Limitar al viewport */
+    overflow: hidden;
 }
 
 @keyframes gridMove {
@@ -148,6 +152,9 @@ a:active {
     z-index: 0;
     pointer-events: none;
     animation: float 20s infinite ease-in-out;
+    /* Limitar al viewport */
+    overflow: hidden;
+    transform: translateZ(0); /* Aceleración por hardware */
 }
 
 .orb-1 {
@@ -180,6 +187,14 @@ a:active {
     0%, 100% { transform: translate(0, 0) scale(1); }
     33% { transform: translate(50px, -50px) scale(1.1); }
     66% { transform: translate(-30px, 30px) scale(0.9); }
+}
+
+/* Contenedor principal para limitar efectos */
+.main-content {
+    position: relative;
+    z-index: 10;
+    min-height: 100vh;
+    background: transparent;
 }
 
 /* ==================== HEADER ==================== */
@@ -612,7 +627,7 @@ a:active {
     overflow: hidden;
     opacity: 0;
     animation: fadeInScale 0.5s ease forwards;
-    isolation: isolate; /* Previene que el pseudo-elemento afecte el contenido */
+    isolation: isolate;
 }
 
 @keyframes fadeInScale {
@@ -628,30 +643,28 @@ a:active {
 
 .script-card:hover {
     transform: translateY(-10px);
-    border-color: transparent; /* Ocultamos el borde original para que solo se vea el glow */
-    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3); /* Sombra exterior suave */
+    border-color: transparent;
+    box-shadow: 0 0 20px rgba(0, 212, 255, 0.3);
 }
 
-/* Pseudo-elemento para el borde con gradiente (solo visible en hover) */
 .script-card::after {
     content: '';
     position: absolute;
-    inset: -2px; /* Cubre exactamente el borde */
+    inset: -2px;
     background: linear-gradient(45deg, var(--color-primary), var(--color-secondary), var(--color-accent), var(--color-primary));
     background-size: 300% 300%;
     border-radius: 16px;
-    z-index: -2; /* Detrás del contenido */
+    z-index: -2;
     opacity: 0;
     transition: opacity 0.3s ease;
     animation: gradientRotate 4s linear infinite;
-    pointer-events: none; /* No interfiere con clics */
+    pointer-events: none;
 }
 
 .script-card:hover::after {
     opacity: 1;
 }
 
-/* Capa interna para mantener el fondo oscuro */
 .script-card::before {
     content: '';
     position: absolute;
@@ -659,7 +672,7 @@ a:active {
     background: var(--color-bg-card);
     border-radius: 16px;
     z-index: -1;
-    margin: 1px; /* Pequeño margen para que no tape el borde */
+    margin: 1px;
 }
 
 @keyframes gradientRotate {
@@ -993,7 +1006,9 @@ a:active {
     padding: 3rem 2rem 2rem;
     position: relative;
     z-index: 10;
-    margin-top: 0; /* Eliminamos cualquier margen extra */
+    margin-top: 0;
+    /* Asegurar que no haya desbordamiento */
+    overflow: hidden;
 }
 
 .footer-content {
@@ -1035,9 +1050,13 @@ a:active {
     color: var(--color-text-muted);
 }
 
-/* Eliminar posible línea blanca extra al final */
-body::after {
-    display: none;
+/* Eliminar cualquier pseudo-elemento que pueda causar líneas */
+body::after,
+body::before,
+html::after,
+html::before {
+    display: none !important;
+    content: none !important;
 }
 
 /* ==================== MODAL ==================== */
