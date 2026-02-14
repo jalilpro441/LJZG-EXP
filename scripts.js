@@ -429,6 +429,7 @@ function typeText(element, speed = CONFIG.typingSpeed) {
             index++;
         } else {
             clearInterval(interval);
+            // Wait before erasing
             setTimeout(() => {
                 eraseText(element, speed);
             }, 2000);
@@ -445,6 +446,7 @@ function eraseText(element, speed) {
             element.textContent = text;
         } else {
             clearInterval(interval);
+            // Switch to next text
             currentTextIndex = (currentTextIndex + 1) % typingTexts.length;
             setTimeout(() => {
                 typeText(element, speed);
@@ -542,6 +544,7 @@ function initCustomCursor() {
     
     if (!cursorDot || !cursorOutline) return;
     
+    // Check if device is mobile
     if (window.innerWidth <= 768) {
         cursorDot.style.display = 'none';
         cursorOutline.style.display = 'none';
@@ -723,7 +726,7 @@ function attachScriptListeners() {
     viewButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
+            e.stopPropagation(); // Evita propagación a la tarjeta
             const scriptId = parseInt(this.getAttribute('data-id'));
             const script = scriptsData.find(s => s.id === scriptId);
             if (script) {
@@ -735,7 +738,7 @@ function attachScriptListeners() {
     copyButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation();
+            e.stopPropagation(); // Evita propagación a la tarjeta
             const scriptId = parseInt(this.getAttribute('data-id'));
             const script = scriptsData.find(s => s.id === scriptId);
             if (script) {
@@ -802,31 +805,26 @@ function initModal() {
 
 // ==================== CLIPBOARD ====================
 function copyToClipboard(text, buttonElement) {
-    // Usar la API moderna de clipboard
-    if (navigator.clipboard && navigator.clipboard.writeText) {
+    // Usar API moderna de clipboard con fallback
+    if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(text).then(() => {
-            // Feedback visual mejorado
+            // Visual feedback on button
             if (buttonElement) {
                 const originalText = buttonElement.textContent;
-                const originalBg = buttonElement.style.background;
-                
                 buttonElement.textContent = '✓ Copiado';
                 buttonElement.classList.add('copied');
                 
                 setTimeout(() => {
                     buttonElement.textContent = originalText;
                     buttonElement.classList.remove('copied');
-                    buttonElement.style.background = originalBg;
                 }, 2000);
             }
             showToast('¡Código copiado al portapapeles!');
         }).catch(err => {
             console.error('Error al copiar:', err);
-            // Fallback si la API moderna falla
             fallbackCopy(text, buttonElement);
         });
     } else {
-        // Fallback para navegadores antiguos
         fallbackCopy(text, buttonElement);
     }
 }
@@ -859,6 +857,7 @@ function fallbackCopy(text, buttonElement) {
             showToast('Error al copiar el código', 'error');
         }
     } catch (err) {
+        console.error('Error en fallback copy:', err);
         showToast('Error al copiar el código', 'error');
     }
     
@@ -887,6 +886,13 @@ function showToast(message, type = 'success') {
     const toastMessage = toast.querySelector('.toast-message');
     if (toastMessage) {
         toastMessage.textContent = message;
+    }
+    
+    // Cambiar color según tipo
+    if (type === 'error') {
+        toast.style.background = 'linear-gradient(135deg, #ff4444, #ff0000)';
+    } else {
+        toast.style.background = 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))';
     }
     
     toast.classList.add('show');
@@ -920,6 +926,25 @@ function initScrollAnimations() {
     });
 }
 
+// ==================== REMOVE EXTRA BOTTOM LINE ====================
+function fixBottomLine() {
+    // Asegurar que no haya elementos extra al final
+    const body = document.body;
+    const html = document.documentElement;
+    
+    // Eliminar cualquier espacio o línea extra
+    body.style.margin = '0';
+    body.style.padding = '0';
+    html.style.margin = '0';
+    html.style.padding = '0';
+    
+    // Verificar si hay algún elemento con margen inferior no deseado
+    const lastElement = document.querySelector('.footer');
+    if (lastElement) {
+        lastElement.style.marginBottom = '0';
+    }
+}
+
 // ==================== INITIALIZE ====================
 document.addEventListener('DOMContentLoaded', () => {
     // Initialize hero typing animation
@@ -940,6 +965,10 @@ document.addEventListener('DOMContentLoaded', () => {
     loadScripts();
     initModal();
     initScrollAnimations();
+    fixBottomLine(); // Nueva función para eliminar línea blanca
     
     console.log('%c LJZG Scripts Loaded! ', 'background: linear-gradient(90deg, #00d4ff, #00ffff); color: #0a0e1a; font-size: 20px; font-weight: bold; padding: 10px;');
 });
+
+// Asegurar que no haya líneas blancas al redimensionar
+window.addEventListener('resize', fixBottomLine);
