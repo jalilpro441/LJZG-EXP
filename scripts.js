@@ -954,3 +954,168 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // Asegurar que no haya líneas blancas al redimensionar
 window.addEventListener('resize', fixBottomLine);
+
+// ==================== EASTER EGG - GATO ====================
+function initCatEasterEgg() {
+    const cat = document.getElementById('catEasterEgg');
+    if (!cat) return;
+    
+    // Array de mensajes graciosos
+    const catMessages = [
+        "¡Miau! 🐱 Programando scripts...",
+        "9 vidas, 9 bugs por arreglar",
+        "¿Robux? No, yo quiero atún 🐟",
+        "pspspsps... ven aquí script",
+        "El gato de Schrödinger está en el modal",
+        "Meow-trix mode activated",
+        "Error 418: I'm a teapot... digo, gato",
+        "Compilando con patas 🐾",
+        "Hackeando el pescado digital",
+        "¡Larga vida al bigote!",
+        "NPC: Gato callejero",
+        "100% real no fake",
+        "Este gato no necesita script",
+        "LJZG: Las Justas Zarpas del Gato"
+    ];
+    
+    // Cambiar mensaje cada cierto tiempo
+    setInterval(() => {
+        const message = cat.querySelector('.cat-message');
+        if (message && cat.matches(':hover')) {
+            const randomIndex = Math.floor(Math.random() * catMessages.length);
+            message.textContent = catMessages[randomIndex];
+        }
+    }, 3000);
+    
+    // Click en el gato - efecto especial
+    cat.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        
+        // Reproducir sonido imaginario (efecto visual)
+        cat.style.animation = 'none';
+        cat.offsetHeight; // Reflow
+        cat.style.animation = 'catExplode 0.3s ease';
+        
+        // Cambiar mensaje temporalmente
+        const message = cat.querySelector('.cat-message');
+        const originalMessage = message.textContent;
+        message.textContent = "¡MEOW! 🐱🔊";
+        message.style.background = 'linear-gradient(135deg, #ff00ff, #00ffff)';
+        message.style.color = '#000';
+        
+        // Efecto de partículas simuladas (opcional)
+        for (let i = 0; i < 5; i++) {
+            setTimeout(() => {
+                cat.style.transform = `translateY(${Math.sin(i) * 5}px)`;
+            }, i * 50);
+        }
+        
+        setTimeout(() => {
+            message.textContent = originalMessage;
+            message.style.background = '';
+            message.style.color = '';
+            cat.style.transform = '';
+        }, 1000);
+        
+        // Mostrar toast especial
+        showToast('¡El gato hackeó el portapapeles! 🐱', 'cat');
+    });
+    
+    // Cambiar expresión de los ojos al mover el mouse
+    cat.addEventListener('mousemove', (e) => {
+        const eyes = cat.querySelectorAll('.cat-eye');
+        const rect = cat.getBoundingClientRect();
+        const mouseX = e.clientX - rect.left;
+        const mouseY = e.clientY - rect.top;
+        
+        eyes.forEach(eye => {
+            const eyeRect = eye.getBoundingClientRect();
+            const eyeX = eyeRect.left - rect.left + eyeRect.width / 2;
+            const eyeY = eyeRect.top - rect.top + eyeRect.height / 2;
+            
+            const deltaX = mouseX - eyeX;
+            const deltaY = mouseY - eyeY;
+            const angle = Math.atan2(deltaY, deltaX);
+            const distance = Math.min(3, Math.sqrt(deltaX * deltaX + deltaY * deltaY) / 10);
+            
+            const moveX = Math.cos(angle) * distance;
+            const moveY = Math.sin(angle) * distance;
+            
+            eye.style.transform = `translate(${moveX}px, ${moveY}px)`;
+        });
+    });
+    
+    // Resetear ojos cuando el mouse sale
+    cat.addEventListener('mouseleave', () => {
+        const eyes = cat.querySelectorAll('.cat-eye');
+        eyes.forEach(eye => {
+            eye.style.transform = '';
+        });
+    });
+    
+    console.log('🐱 Easter Egg: Gato programador activado');
+}
+
+// Modificar la función showToast para aceptar el tipo 'cat'
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    if (!toast) return;
+    
+    const toastMessage = toast.querySelector('.toast-message');
+    if (toastMessage) {
+        toastMessage.textContent = message;
+    }
+    
+    // Cambiar color según tipo
+    if (type === 'error') {
+        toast.style.background = 'linear-gradient(135deg, #ff4444, #ff0000)';
+    } else if (type === 'cat') {
+        toast.style.background = 'linear-gradient(135deg, #ffaa00, #ff7700)';
+        toast.style.color = '#000';
+        // Añadir icono de gato temporalmente
+        toast.querySelector('.toast-icon').textContent = '🐱';
+        setTimeout(() => {
+            toast.querySelector('.toast-icon').textContent = '✓';
+        }, 2000);
+    } else {
+        toast.style.background = 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))';
+        toast.style.color = 'var(--color-bg-dark)';
+    }
+    
+    toast.classList.add('show');
+    
+    setTimeout(() => {
+        toast.classList.remove('show');
+    }, CONFIG.toastDuration);
+}
+
+// ==================== INITIALIZE ====================
+document.addEventListener('DOMContentLoaded', () => {
+    // Initialize hero typing animation
+    const typingElement = document.querySelector('.typing-text');
+    if (typingElement) {
+        setTimeout(() => {
+            typeText(typingElement, 80);
+        }, CONFIG.typingDelay);
+    }
+    
+    // Initialize all features
+    initParticles();
+    initCustomCursor();
+    initScrollProgress();
+    initHeaderScroll();
+    initMobileMenu();
+    initSmoothScroll();
+    loadScripts();
+    initModal();
+    initScrollAnimations();
+    fixBottomLine();
+    removeNavigationOutline();
+    initCatEasterEgg(); // 🐱 Nuevo easter egg
+    
+    console.log('%c LJZG Scripts Loaded! ', 'background: linear-gradient(90deg, #00d4ff, #00ffff); color: #0a0e1a; font-size: 20px; font-weight: bold; padding: 10px;');
+    console.log('%c 🐱 También cargamos un gato! ', 'background: #ffaa00; color: #000; font-size: 16px; padding: 5px;');
+});
+
+window.addEventListener('resize', fixBottomLine);
