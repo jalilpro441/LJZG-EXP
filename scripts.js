@@ -429,7 +429,6 @@ function typeText(element, speed = CONFIG.typingSpeed) {
             index++;
         } else {
             clearInterval(interval);
-            // Wait before erasing
             setTimeout(() => {
                 eraseText(element, speed);
             }, 2000);
@@ -446,7 +445,6 @@ function eraseText(element, speed) {
             element.textContent = text;
         } else {
             clearInterval(interval);
-            // Switch to next text
             currentTextIndex = (currentTextIndex + 1) % typingTexts.length;
             setTimeout(() => {
                 typeText(element, speed);
@@ -544,7 +542,6 @@ function initCustomCursor() {
     
     if (!cursorDot || !cursorOutline) return;
     
-    // Check if device is mobile
     if (window.innerWidth <= 768) {
         cursorDot.style.display = 'none';
         cursorOutline.style.display = 'none';
@@ -726,6 +723,7 @@ function attachScriptListeners() {
     viewButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             const scriptId = parseInt(this.getAttribute('data-id'));
             const script = scriptsData.find(s => s.id === scriptId);
             if (script) {
@@ -737,6 +735,7 @@ function attachScriptListeners() {
     copyButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
+            e.stopPropagation();
             const scriptId = parseInt(this.getAttribute('data-id'));
             const script = scriptsData.find(s => s.id === scriptId);
             if (script) {
@@ -803,35 +802,62 @@ function initModal() {
 
 // ==================== CLIPBOARD ====================
 function copyToClipboard(text, buttonElement) {
-    navigator.clipboard.writeText(text).then(() => {
-        // Visual feedback on button
-        if (buttonElement) {
-            const originalText = buttonElement.textContent;
-            buttonElement.textContent = '✓ Copiado';
-            buttonElement.style.background = 'linear-gradient(135deg, #00ff88, #00dd77)';
-            
-            setTimeout(() => {
-                buttonElement.textContent = originalText;
-                buttonElement.style.background = '';
-            }, 2000);
-        }
-        showToast('¡Código copiado al portapapeles!');
-    }).catch(err => {
-        showToast('Error al copiar el código', 'error');
-    });
+    // Usar la API moderna de clipboard
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).then(() => {
+            // Feedback visual mejorado
+            if (buttonElement) {
+                const originalText = buttonElement.textContent;
+                const originalBg = buttonElement.style.background;
+                
+                buttonElement.textContent = '✓ Copiado';
+                buttonElement.classList.add('copied');
+                
+                setTimeout(() => {
+                    buttonElement.textContent = originalText;
+                    buttonElement.classList.remove('copied');
+                    buttonElement.style.background = originalBg;
+                }, 2000);
+            }
+            showToast('¡Código copiado al portapapeles!');
+        }).catch(err => {
+            console.error('Error al copiar:', err);
+            // Fallback si la API moderna falla
+            fallbackCopy(text, buttonElement);
+        });
+    } else {
+        // Fallback para navegadores antiguos
+        fallbackCopy(text, buttonElement);
+    }
 }
 
-function fallbackCopy(text) {
+function fallbackCopy(text, buttonElement) {
     const textArea = document.createElement('textarea');
     textArea.value = text;
     textArea.style.position = 'fixed';
     textArea.style.left = '-9999px';
+    textArea.style.top = '0';
     document.body.appendChild(textArea);
+    textArea.focus();
     textArea.select();
     
     try {
-        document.execCommand('copy');
-        showToast('¡Código copiado al portapapeles!');
+        const successful = document.execCommand('copy');
+        if (successful) {
+            if (buttonElement) {
+                const originalText = buttonElement.textContent;
+                buttonElement.textContent = '✓ Copiado';
+                buttonElement.classList.add('copied');
+                
+                setTimeout(() => {
+                    buttonElement.textContent = originalText;
+                    buttonElement.classList.remove('copied');
+                }, 2000);
+            }
+            showToast('¡Código copiado al portapapeles!');
+        } else {
+            showToast('Error al copiar el código', 'error');
+        }
     } catch (err) {
         showToast('Error al copiar el código', 'error');
     }
