@@ -1,7 +1,7 @@
 // ==================== CONFIGURATION ====================
 const CONFIG = {
     typingSpeed: 100,
-    typingDelay: 1000,
+    typingDelay: 2000, // Aumentado a 2 segundos (antes era 1000ms)
     particleCount: 100,
     toastDuration: 3000
 };
@@ -14,8 +14,6 @@ const scriptsData = [
         description: "Visualiza a todos los jugadores a través de paredes con información detallada en tiempo real",
         category: "exploit",
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path><circle cx="12" cy="12" r="3"></circle></svg>`,
-        downloads: "1.2K",
-        rating: "4.9",
         code: `-- Universal ESP by LJZG
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -83,8 +81,6 @@ print("ESP Loaded Successfully!")`
         description: "Sistema de puntería automática con predicción avanzada y smoothing configurable",
         category: "exploit",
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><circle cx="12" cy="12" r="6"></circle><circle cx="12" cy="12" r="2"></circle></svg>`,
-        downloads: "2.5K",
-        rating: "5.0",
         code: `-- Aimbot Avanzado by LJZG
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -178,8 +174,6 @@ print("Aimbot Activated!")`
         description: "Panel de administración completo con más de 50 comandos personalizables",
         category: "admin",
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>`,
-        downloads: "3.8K",
-        rating: "4.8",
         code: `-- Admin Commands GUI by LJZG
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -268,8 +262,6 @@ print("Admin GUI Loaded!")`
         description: "Salta infinitamente sin límites, perfecto para exploración",
         category: "misc",
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path></svg>`,
-        downloads: "5.1K",
-        rating: "4.7",
         code: `-- Infinite Jump by LJZG
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -297,8 +289,6 @@ print("Infinite Jump Activated!")`
         description: "Sistema de vuelo avanzado con control de velocidad y física mejorada",
         category: "misc",
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17.8 19.2 16 11l3.5-3.5C21 6 21.5 4 21 3c-1-.5-3 0-4.5 1.5L13 8 4.8 6.2c-.5-.1-.9.1-1.1.5l-.3.5c-.2.5-.1 1 .3 1.3L9 12l-2 3H4l-1 1 3 2 2 3 1-1v-3l3-2 3.5 5.3c.3.4.8.5 1.3.3l.5-.2c.4-.3.6-.7.5-1.2z"></path></svg>`,
-        downloads: "4.2K",
-        rating: "4.9",
         code: `-- Fly Script V3 by LJZG
 local Players = game:GetService("Players")
 local UserInputService = game:GetService("UserInputService")
@@ -389,8 +379,6 @@ print("Fly Script Loaded! Press E to toggle")`
         description: "Aumenta tu velocidad de movimiento con controles personalizables",
         category: "misc",
         icon: `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg>`,
-        downloads: "1.8K",
-        rating: "4.6",
         code: `-- Speed Hack by LJZG
 local Players = game:GetService("Players")
 local LocalPlayer = Players.LocalPlayer
@@ -429,10 +417,10 @@ function typeText(element, speed = CONFIG.typingSpeed) {
             index++;
         } else {
             clearInterval(interval);
-            // Wait before erasing
+            // Esperar más tiempo antes de borrar (aumentado a 3500ms)
             setTimeout(() => {
                 eraseText(element, speed);
-            }, 2000);
+            }, 3500);
         }
     }, speed);
 }
@@ -448,9 +436,10 @@ function eraseText(element, speed) {
             clearInterval(interval);
             // Switch to next text
             currentTextIndex = (currentTextIndex + 1) % typingTexts.length;
+            // Esperar antes de escribir el siguiente texto
             setTimeout(() => {
                 typeText(element, speed);
-            }, 500);
+            }, 800);
         }
     }, speed / 2);
 }
@@ -542,49 +531,63 @@ function initCustomCursor() {
     const cursorDot = document.querySelector('.cursor-dot');
     const cursorOutline = document.querySelector('.cursor-outline');
     
-    if (!cursorDot || !cursorOutline) return;
+    if (!cursorDot) return;
     
-    // Check if device is mobile
-    if (window.innerWidth <= 768) {
-        cursorDot.style.display = 'none';
+    // Eliminar el círculo exterior si existe
+    if (cursorOutline) {
         cursorOutline.style.display = 'none';
+    }
+    
+    // Check if device is mobile or touch device
+    if (window.innerWidth <= 768 || ('ontouchstart' in window)) {
+        cursorDot.style.display = 'none';
+        document.body.style.cursor = 'auto';
         return;
     }
     
     let mouseX = 0;
     let mouseY = 0;
-    let outlineX = 0;
-    let outlineY = 0;
+    let isMouseMoving = false;
+    let timeout;
     
+    // Ocultar cursor cuando el mouse no se mueve
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
         
         cursorDot.style.left = mouseX + 'px';
         cursorDot.style.top = mouseY + 'px';
+        cursorDot.style.opacity = '1';
+        
+        isMouseMoving = true;
+        
+        // Resetear el timeout
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            cursorDot.style.opacity = '0';
+        }, 2000);
     });
     
-    function animateOutline() {
-        outlineX += (mouseX - outlineX) * 0.15;
-        outlineY += (mouseY - outlineY) * 0.15;
-        
-        cursorOutline.style.left = outlineX + 'px';
-        cursorOutline.style.top = outlineY + 'px';
-        
-        requestAnimationFrame(animateOutline);
-    }
+    // Asegurar que el cursor se muestre al entrar al documento
+    document.addEventListener('mouseenter', () => {
+        cursorDot.style.opacity = '1';
+    });
     
-    animateOutline();
+    // Ocultar cursor al salir del documento
+    document.addEventListener('mouseleave', () => {
+        cursorDot.style.opacity = '0';
+    });
     
-    document.querySelectorAll('a, button').forEach(el => {
+    // Efecto hover en elementos interactivos
+    document.querySelectorAll('a, button, .btn, .nav-link, .script-card, .contact-card').forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursorDot.style.transform = 'scale(2)';
-            cursorOutline.style.transform = 'scale(1.5)';
+            cursorDot.style.background = 'var(--color-accent)';
         });
         
         el.addEventListener('mouseleave', () => {
             cursorDot.style.transform = 'scale(1)';
-            cursorOutline.style.transform = 'scale(1)';
+            cursorDot.style.background = 'var(--color-primary)';
         });
     });
 }
@@ -649,43 +652,6 @@ function initSmoothScroll() {
     });
 }
 
-// ==================== COUNTER ANIMATION ====================
-function animateCounters() {
-    const counters = document.querySelectorAll('.stat-number');
-    
-    const observerOptions = {
-        threshold: 0.5,
-        rootMargin: '0px'
-    };
-    
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                const counter = entry.target;
-                const target = parseInt(counter.getAttribute('data-target'));
-                const duration = 2000;
-                const increment = target / (duration / 16);
-                let current = 0;
-                
-                const updateCounter = () => {
-                    current += increment;
-                    if (current < target) {
-                        counter.textContent = Math.floor(current);
-                        requestAnimationFrame(updateCounter);
-                    } else {
-                        counter.textContent = target;
-                    }
-                };
-                
-                updateCounter();
-                observer.unobserve(counter);
-            }
-        });
-    }, observerOptions);
-    
-    counters.forEach(counter => observer.observe(counter));
-}
-
 // ==================== LOAD SCRIPTS ====================
 function loadScripts() {
     const grid = document.getElementById('scriptsGrid');
@@ -726,7 +692,7 @@ function attachScriptListeners() {
     viewButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation(); // Evita propagación a la tarjeta
+            e.stopPropagation();
             const scriptId = parseInt(this.getAttribute('data-id'));
             const script = scriptsData.find(s => s.id === scriptId);
             if (script) {
@@ -738,7 +704,7 @@ function attachScriptListeners() {
     copyButtons.forEach(btn => {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
-            e.stopPropagation(); // Evita propagación a la tarjeta
+            e.stopPropagation();
             const scriptId = parseInt(this.getAttribute('data-id'));
             const script = scriptsData.find(s => s.id === scriptId);
             if (script) {
@@ -784,7 +750,7 @@ function initModal() {
     if (copyBtn) {
         copyBtn.addEventListener('click', () => {
             const code = document.getElementById('modalCode').textContent;
-            copyToClipboard(code);
+            copyToClipboard(code, copyBtn);
         });
     }
     
@@ -805,7 +771,6 @@ function initModal() {
 
 // ==================== CLIPBOARD ====================
 function copyToClipboard(text, buttonElement) {
-    // Usar API moderna de clipboard con fallback
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(text).then(() => {
             // Visual feedback on button
@@ -928,21 +893,37 @@ function initScrollAnimations() {
 
 // ==================== REMOVE EXTRA BOTTOM LINE ====================
 function fixBottomLine() {
-    // Asegurar que no haya elementos extra al final
     const body = document.body;
     const html = document.documentElement;
     
-    // Eliminar cualquier espacio o línea extra
     body.style.margin = '0';
     body.style.padding = '0';
     html.style.margin = '0';
     html.style.padding = '0';
     
-    // Verificar si hay algún elemento con margen inferior no deseado
     const lastElement = document.querySelector('.footer');
     if (lastElement) {
         lastElement.style.marginBottom = '0';
     }
+}
+
+// ==================== ELIMINAR OUTLINE DE NAVEGACIÓN ====================
+function removeNavigationOutline() {
+    // Eliminar outline de todos los elementos del menú
+    document.querySelectorAll('.nav-link, .burger-menu, .btn, .script-btn, .contact-card, .modal-close').forEach(el => {
+        el.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            // Prevenir el outline solo en clicks con mouse
+            el.style.outline = 'none';
+        });
+        
+        el.addEventListener('keydown', (e) => {
+            // Mantener outline para navegación por teclado (accesibilidad)
+            if (e.key === 'Tab') {
+                el.style.outline = '2px solid var(--color-primary)';
+            }
+        });
+    });
 }
 
 // ==================== INITIALIZE ====================
@@ -965,7 +946,8 @@ document.addEventListener('DOMContentLoaded', () => {
     loadScripts();
     initModal();
     initScrollAnimations();
-    fixBottomLine(); // Nueva función para eliminar línea blanca
+    fixBottomLine();
+    removeNavigationOutline(); // Nueva función para eliminar outlines
     
     console.log('%c LJZG Scripts Loaded! ', 'background: linear-gradient(90deg, #00d4ff, #00ffff); color: #0a0e1a; font-size: 20px; font-weight: bold; padding: 10px;');
 });
