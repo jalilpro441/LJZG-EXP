@@ -926,35 +926,6 @@ function removeNavigationOutline() {
     });
 }
 
-// ==================== INITIALIZE ====================
-document.addEventListener('DOMContentLoaded', () => {
-    // Initialize hero typing animation
-    const typingElement = document.querySelector('.typing-text');
-    if (typingElement) {
-        setTimeout(() => {
-            typeText(typingElement, 80);
-        }, CONFIG.typingDelay);
-    }
-    
-    // Initialize all features
-    initParticles();
-    initCustomCursor();
-    initScrollProgress();
-    initHeaderScroll();
-    initMobileMenu();
-    initSmoothScroll();
-    loadScripts();
-    initModal();
-    initScrollAnimations();
-    fixBottomLine();
-    removeNavigationOutline(); // Nueva función para eliminar outlines
-    
-    console.log('%c LJZG Scripts Loaded! ', 'background: linear-gradient(90deg, #00d4ff, #00ffff); color: #0a0e1a; font-size: 20px; font-weight: bold; padding: 10px;');
-});
-
-// Asegurar que no haya líneas blancas al redimensionar
-window.addEventListener('resize', fixBottomLine);
-
 // ==================== EASTER EGG - GATO ====================
 function initCatEasterEgg() {
     const cat = document.getElementById('catEasterEgg');
