@@ -61,7 +61,7 @@ body::before {
     height: 100%;
     background: radial-gradient(ellipse at center, transparent 0%, transparent 60%, rgba(0, 0, 0, 0.4) 100%);
     pointer-events: none;
-    z-index: 9999;
+    z-index: 0;
 }
 
 /* Outline highlight for mobile */
