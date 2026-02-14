@@ -1,7 +1,7 @@
 // ==================== CONFIGURATION ====================
 const CONFIG = {
     typingSpeed: 100,
-    typingDelay: 2000, // Aumentado a 2 segundos (antes era 1000ms)
+    typingDelay: 2000,
     particleCount: 100,
     toastDuration: 3000
 };
@@ -417,7 +417,6 @@ function typeText(element, speed = CONFIG.typingSpeed) {
             index++;
         } else {
             clearInterval(interval);
-            // Esperar más tiempo antes de borrar (aumentado a 3500ms)
             setTimeout(() => {
                 eraseText(element, speed);
             }, 3500);
@@ -434,9 +433,7 @@ function eraseText(element, speed) {
             element.textContent = text;
         } else {
             clearInterval(interval);
-            // Switch to next text
             currentTextIndex = (currentTextIndex + 1) % typingTexts.length;
-            // Esperar antes de escribir el siguiente texto
             setTimeout(() => {
                 typeText(element, speed);
             }, 800);
@@ -533,12 +530,10 @@ function initCustomCursor() {
     
     if (!cursorDot) return;
     
-    // Eliminar el círculo exterior si existe
     if (cursorOutline) {
         cursorOutline.style.display = 'none';
     }
     
-    // Check if device is mobile or touch device
     if (window.innerWidth <= 768 || ('ontouchstart' in window)) {
         cursorDot.style.display = 'none';
         document.body.style.cursor = 'auto';
@@ -550,7 +545,6 @@ function initCustomCursor() {
     let isMouseMoving = false;
     let timeout;
     
-    // Ocultar cursor cuando el mouse no se mueve
     document.addEventListener('mousemove', (e) => {
         mouseX = e.clientX;
         mouseY = e.clientY;
@@ -561,24 +555,20 @@ function initCustomCursor() {
         
         isMouseMoving = true;
         
-        // Resetear el timeout
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             cursorDot.style.opacity = '0';
         }, 2000);
     });
     
-    // Asegurar que el cursor se muestre al entrar al documento
     document.addEventListener('mouseenter', () => {
         cursorDot.style.opacity = '1';
     });
     
-    // Ocultar cursor al salir del documento
     document.addEventListener('mouseleave', () => {
         cursorDot.style.opacity = '0';
     });
     
-    // Efecto hover en elementos interactivos
     document.querySelectorAll('a, button, .btn, .nav-link, .script-card, .contact-card').forEach(el => {
         el.addEventListener('mouseenter', () => {
             cursorDot.style.transform = 'scale(2)';
@@ -773,7 +763,6 @@ function initModal() {
 function copyToClipboard(text, buttonElement) {
     if (navigator.clipboard && window.isSecureContext) {
         navigator.clipboard.writeText(text).then(() => {
-            // Visual feedback on button
             if (buttonElement) {
                 const originalText = buttonElement.textContent;
                 buttonElement.textContent = '✓ Copiado';
@@ -853,11 +842,23 @@ function showToast(message, type = 'success') {
         toastMessage.textContent = message;
     }
     
-    // Cambiar color según tipo
+    const toastIcon = toast.querySelector('.toast-icon');
+    
     if (type === 'error') {
         toast.style.background = 'linear-gradient(135deg, #ff4444, #ff0000)';
+        toast.style.color = '#fff';
+        if (toastIcon) toastIcon.textContent = '✗';
+    } else if (type === 'cat') {
+        toast.style.background = 'linear-gradient(135deg, #ffaa00, #ff7700)';
+        toast.style.color = '#000';
+        if (toastIcon) toastIcon.textContent = '🐱';
+        setTimeout(() => {
+            if (toastIcon) toastIcon.textContent = '✓';
+        }, 2000);
     } else {
         toast.style.background = 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))';
+        toast.style.color = 'var(--color-bg-dark)';
+        if (toastIcon) toastIcon.textContent = '✓';
     }
     
     toast.classList.add('show');
@@ -909,16 +910,13 @@ function fixBottomLine() {
 
 // ==================== ELIMINAR OUTLINE DE NAVEGACIÓN ====================
 function removeNavigationOutline() {
-    // Eliminar outline de todos los elementos del menú
     document.querySelectorAll('.nav-link, .burger-menu, .btn, .script-btn, .contact-card, .modal-close').forEach(el => {
         el.addEventListener('mousedown', (e) => {
             e.preventDefault();
-            // Prevenir el outline solo en clicks con mouse
             el.style.outline = 'none';
         });
         
         el.addEventListener('keydown', (e) => {
-            // Mantener outline para navegación por teclado (accesibilidad)
             if (e.key === 'Tab') {
                 el.style.outline = '2px solid var(--color-primary)';
             }
@@ -931,7 +929,6 @@ function initCatEasterEgg() {
     const cat = document.getElementById('catEasterEgg');
     if (!cat) return;
     
-    // Array de mensajes graciosos
     const catMessages = [
         "¡Miau! 🐱 Programando scripts...",
         "9 vidas, 9 bugs por arreglar",
@@ -946,10 +943,13 @@ function initCatEasterEgg() {
         "NPC: Gato callejero",
         "100% real no fake",
         "Este gato no necesita script",
-        "LJZG: Las Justas Zarpas del Gato"
+        "LJZG: Las Justas Zarpas del Gato",
+        "¡Miau! ¿Viste mi cola? 🐱",
+        "Soy el gato de la programación",
+        "9 líneas de código, 9 vidas",
+        "El gato está en el servidor"
     ];
     
-    // Cambiar mensaje cada cierto tiempo
     setInterval(() => {
         const message = cat.querySelector('.cat-message');
         if (message && cat.matches(':hover')) {
@@ -958,24 +958,20 @@ function initCatEasterEgg() {
         }
     }, 3000);
     
-    // Click en el gato - efecto especial
     cat.addEventListener('click', (e) => {
         e.preventDefault();
         e.stopPropagation();
         
-        // Reproducir sonido imaginario (efecto visual)
         cat.style.animation = 'none';
-        cat.offsetHeight; // Reflow
+        cat.offsetHeight;
         cat.style.animation = 'catExplode 0.3s ease';
         
-        // Cambiar mensaje temporalmente
         const message = cat.querySelector('.cat-message');
         const originalMessage = message.textContent;
         message.textContent = "¡MEOW! 🐱🔊";
         message.style.background = 'linear-gradient(135deg, #ff00ff, #00ffff)';
         message.style.color = '#000';
         
-        // Efecto de partículas simuladas (opcional)
         for (let i = 0; i < 5; i++) {
             setTimeout(() => {
                 cat.style.transform = `translateY(${Math.sin(i) * 5}px)`;
@@ -989,11 +985,9 @@ function initCatEasterEgg() {
             cat.style.transform = '';
         }, 1000);
         
-        // Mostrar toast especial
         showToast('¡El gato hackeó el portapapeles! 🐱', 'cat');
     });
     
-    // Cambiar expresión de los ojos al mover el mouse
     cat.addEventListener('mousemove', (e) => {
         const eyes = cat.querySelectorAll('.cat-eye');
         const rect = cat.getBoundingClientRect();
@@ -1017,7 +1011,6 @@ function initCatEasterEgg() {
         });
     });
     
-    // Resetear ojos cuando el mouse sale
     cat.addEventListener('mouseleave', () => {
         const eyes = cat.querySelectorAll('.cat-eye');
         eyes.forEach(eye => {
@@ -1028,42 +1021,8 @@ function initCatEasterEgg() {
     console.log('🐱 Easter Egg: Gato programador activado');
 }
 
-// Modificar la función showToast para aceptar el tipo 'cat'
-function showToast(message, type = 'success') {
-    const toast = document.getElementById('toast');
-    if (!toast) return;
-    
-    const toastMessage = toast.querySelector('.toast-message');
-    if (toastMessage) {
-        toastMessage.textContent = message;
-    }
-    
-    // Cambiar color según tipo
-    if (type === 'error') {
-        toast.style.background = 'linear-gradient(135deg, #ff4444, #ff0000)';
-    } else if (type === 'cat') {
-        toast.style.background = 'linear-gradient(135deg, #ffaa00, #ff7700)';
-        toast.style.color = '#000';
-        // Añadir icono de gato temporalmente
-        toast.querySelector('.toast-icon').textContent = '🐱';
-        setTimeout(() => {
-            toast.querySelector('.toast-icon').textContent = '✓';
-        }, 2000);
-    } else {
-        toast.style.background = 'linear-gradient(135deg, var(--color-primary), var(--color-secondary))';
-        toast.style.color = 'var(--color-bg-dark)';
-    }
-    
-    toast.classList.add('show');
-    
-    setTimeout(() => {
-        toast.classList.remove('show');
-    }, CONFIG.toastDuration);
-}
-
 // ==================== INITIALIZE ====================
 document.addEventListener('DOMContentLoaded', () => {
-    // Initialize hero typing animation
     const typingElement = document.querySelector('.typing-text');
     if (typingElement) {
         setTimeout(() => {
@@ -1071,7 +1030,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }, CONFIG.typingDelay);
     }
     
-    // Initialize all features
     initParticles();
     initCustomCursor();
     initScrollProgress();
@@ -1083,7 +1041,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollAnimations();
     fixBottomLine();
     removeNavigationOutline();
-    initCatEasterEgg(); // 🐱 Nuevo easter egg
+    initCatEasterEgg();
     
     console.log('%c LJZG Scripts Loaded! ', 'background: linear-gradient(90deg, #00d4ff, #00ffff); color: #0a0e1a; font-size: 20px; font-weight: bold; padding: 10px;');
     console.log('%c 🐱 También cargamos un gato! ', 'background: #ffaa00; color: #000; font-size: 16px; padding: 5px;');
